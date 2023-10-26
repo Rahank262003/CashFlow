@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    /* Style the budget heading */
+    .budget-heading { 
+        color: black;
+        padding: 20px; /* Add padding to the heading */
+        margin: 0; /* Reset the default margin for <h1> */
+        text-align: center; /* Center-align the text */
+        font-size: 50px; /* Adjust the font size as needed */
+        border-radius: 5px;
+    }
+    
+    /* Style the budget info container */
+.budget-info {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Style the budget labels */
+.budget-label {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+/* Style the budget values */
+.budget-value {
+    margin: 5px 0;
+}
+
+/* Style the message for no budget data */
+.no-budget-data {
+    color: #f00; /* Red color for emphasis */
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+    /* Apply styles to the date input fields */
+    input[type="date"] {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    /* Apply styles to the form container */
+    .budget-form {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    /* Style the labels */
+    label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    .save-button {
+        color: white;
+        background-color: #007bff; /* Blue background color for Save button */
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+<h1 class="budget-heading">Budget</h1>
+<form method="post" class="budget-form">
+    {% csrf_token %}
+    {{ form.total_budget.label_tag }} {{ form.total_budget }}
+    
+    <!-- Input fields for Start Date and End Date -->
+    <label for="id_start_date">Start Date:</label>
+    <input type="date" id="id_start_date" name="start_date">
+    
+    <label for "id_end_date">End Date:</label>
+    <input type="date" id="id_end_date" name="end_date">
+    <input type="submit" class="save-button" value="Save">
+
+    {% if budget_data %}
+    <div class="budget-info">
+        <p class="budget-label">Total Budget:</p>
+        <p class="budget-value">{{ budget_data.total_budget }}</p>
+        <p class="budget-label">Start Date:</p>
+        <p class="budget-value">{{ budget_data.start_date }}</p>
+        <p class="budget-label">End Date:</p>
+        <p class="budget-value">{{ budget_data.end_date }}</p>
+        <p class="budget-label">Total Expenses:</p>
+        <p class="budget-value">{{ total_expenses }}</p>
+        <p class="budget-label">Amount Left:</p>
+        <p class="budget-value">{{ difference }}</p>
+    </div>
+{% else %}
+    <p class="no-budget-data">No budget data available.</p>
+{% endif %}
+
+
+<!-- Add Date Picker to Start Date and End Date Fields -->
+<script>
+    $(function() {
+        $("#id_start_date, #id_end_date").datepicker();
+    });
+</script>
+{% endblock %}
+
+
+
+
