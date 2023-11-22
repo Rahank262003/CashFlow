@@ -13,6 +13,7 @@ from datetime import date,timedelta
 from django.db.models import Sum
 from .models import UserIncome,Budget
 from django.views.generic import TemplateView
+from decimal import Decimal
 
 
 
@@ -178,10 +179,13 @@ def budget(request):
             else:
                 Budget.objects.create(**form.cleaned_data)
             return redirect('budget')
-
     else:
         form = BudgetForm(instance=budget_data)
+
+    # Calculate total expenses as a Decimal
     total_expenses = Decimal(Expense.objects.all().aggregate(total=Sum('amount'))['total'] or 0)
+
+    # Calculate the difference as a Decimal
     difference = budget_data.total_budget - total_expenses
 
     return render(request, 'income/budget.html', {'form': form, 'budget_data': budget_data, 'total_expenses': total_expenses, 'difference': difference})

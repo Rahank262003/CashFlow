@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'sqlite3.db',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'PORT':'48474',
+        'USER':'postgres',
+        'PASSWORD':'*AdF53af3Gf-5*ECB5bgAeBAG3BeBC-2',
+        'HOST':'monorail.proxy.rlwy.net'
     
     }
 }
