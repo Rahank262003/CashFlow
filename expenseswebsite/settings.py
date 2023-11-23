@@ -151,3 +151,9 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CSRF_COOKIE_SECURE = False
 # CSRF_COOKIE_HTTPONLY = False
+
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("bootstrap.min/css", ".css", True)
+mimetypes.add_type("dashboard/css", ".css", True)
+mimetypes.add_type("main/css", ".css", True)
